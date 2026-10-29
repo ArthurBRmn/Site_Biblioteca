@@ -1,0 +1,1 @@
+Coloque as capas dos livros nesta pasta. Depois, no arquivo script.js, informe o caminho no campo coverImage de cada item. Exemplo: coverImage: "images/minha-capa.jpg". Deixe o campo vazio para usar a capa ilustrada padrão.
