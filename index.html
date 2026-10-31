@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Margem — Biblioteca digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="#inicio">
+        <b>M</b>
+        margem<span>.</span>
+      </a>
+      <p class="side-label">BIBLIOTECA</p>
+      <nav>
+        <a class="active" href="#inicio">⌂ &nbsp; Início</a>
+        <a href="#acervo">▤ &nbsp; Explorar tudo</a>
+        <a href="#acervo" data-type="Livro">▯ &nbsp; Livros</a>
+        <a href="#acervo" data-type="HQ">▧ &nbsp; Quadrinhos</a>
+        <a href="#acervo" data-type="Artigo">≡ &nbsp; Artigos</a>
+      </nav>
+      <div class="side-note">
+        <span>✳</span>
+        <p>Uma boa história<br>sempre encontra<br>seu caminho.</p>
+        <small>LEIA NO SEU TEMPO</small>
+      </div>
+      <small class="status"><i></i> Acervo em expansão</small>
+    </aside>
+    <main id="inicio">
+      <header>
+        <span>Biblioteca <i>/</i> <b>Início</b></span>
+        <small>SEU ESPAÇO DE LEITURA</small>
+        <button aria-label="Perfil">L</button>
+      </header>
+      <section class="hero">
+        <div class="hero-copy">
+          <small class="eyebrow">UM UNIVERSO DE HISTÓRIAS</small>
+          <h1>O que vamos<br><em>descobrir hoje?</em></h1>
+          <p>Explore um acervo de livros, quadrinhos e artigos.<br>Escolha seus formatos e encontre uma nova leitura.</p>
+          <a class="primary" href="#acervo">Abrir o acervo <b>↗</b></a>
+        </div>
+        <div class="hero-art" aria-label="Livros ilustrados" role="img">
+          <div class="grid"></div>
+          <div class="ring"></div>
+          <div class="book back">
+            <small>01</small>
+            <b>O começo<br>de tudo</b>
+          </div>
+          <div class="book mid">
+            <small>02</small>
+            <b>Histórias<br>que ficam</b>
+          </div>
+          <div class="book front">
+            <small>M</small>
+            <b>VIRE A<br>PÁGINA</b>
+          </div>
+          <small class="art-note">IDEIAS EM MOVIMENTO ✳</small>
+        </div>
+        <div class="hero-index"><span>01</span><i></i><span>LEITURAS PARA CADA CURIOSIDADE</span></div>
+      </section>
+      <section class="catalog" id="acervo">
+        <div class="section-heading">
+          <div>
+            <small class="eyebrow">ESCOLHA SEU CAMINHO</small>
+            <h2>Explore o acervo<span>.</span></h2>
+          </div>
+          <p>Filtre por formato ou combine<br>mais de um para ver tudo junto.</p>
+        </div>
+        <div class="tools">
+          <div class="filters" role="group" aria-label="Filtrar por formato">
+            <button class="selected" data-filter="Todos" aria-pressed="true">Tudo <sup>06</sup></button>
+            <button data-filter="Livro" aria-pressed="false">Livros <sup>02</sup></button>
+            <button data-filter="HQ" aria-pressed="false">Quadrinhos <sup>02</sup></button>
+            <button data-filter="Artigo" aria-pressed="false">Artigos <sup>02</sup></button>
+          </div>
+          <label class="search">
+            ⌕
+            <input id="search" type="search" placeholder="Buscar título ou autor" aria-label="Buscar título ou autor">
+            <kbd>⌘ K</kbd>
+          </label>
+        </div>
+        <div id="active" class="active-filters"></div>
+        <div id="catalog" class="cards" aria-live="polite"></div>
+        <div id="empty" class="empty" hidden>
+          <h3>Nenhuma leitura encontrada</h3>
+          <p>Experimente outra busca ou limpe os filtros.</p>
+          <button id="clear">Limpar filtros</button>
+        </div>
+        <div class="catalog-footer"><span id="count">Mostrando 6 itens</span><a href="#inicio">Voltar ao início ↑</a></div>
+      </section>
+      <footer><a class="brand" href="#inicio">margem<span>.</span></a><small>Um lugar para suas próximas histórias.</small><a href="#inicio">Voltar ao topo ↑</a></footer>
+    </main>
+  </div>
+  <dialog id="dialog"><button class="close" aria-label="Fechar">×</button><div id="details"></div></dialog>
+  <script src="script.js"></script>
+</body>
+</html>
