@@ -303,3 +303,31 @@ h1 em { color: var(--olive); }
   background: #f7ede2;
   color: #b97557;
 }
+
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.secondary-link {
+  min-height: 39px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--olive);
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .18s, border-color .18s;
+}
+
+.secondary-link:hover {
+  border-color: #c9c6ba;
+  background: #eeece4;
+}
