@@ -122,6 +122,9 @@ const filterButtons = [...document.querySelectorAll("[data-filter]")];
 let selectedTypes = [];
 let searchTerm = "";
 let readingProgress = JSON.parse(localStorage.getItem("margem-reading-progress") || "{}");
+let favorites = new Set(JSON.parse(localStorage.getItem("margem-favorites") || "[]"));
+let favoritesOnly = false;
+let activeNavView = "home";
 
 function escapeHtml(value) {
   return value.replace(/[&<>"']/g, (character) => ({
@@ -136,8 +139,9 @@ function escapeHtml(value) {
 function renderCatalog() {
   const results = items.map((item, index) => ({ ...item, index })).filter((item) => {
     const matchesType = selectedTypes.length === 0 || selectedTypes.includes(item.type);
+    const matchesFavorite = !favoritesOnly || favorites.has(item.title);
     const text = `${item.title} ${item.author} ${item.tag}`.toLocaleLowerCase("pt-BR");
-    return matchesType && text.includes(searchTerm.toLocaleLowerCase("pt-BR"));
+    return matchesType && matchesFavorite && text.includes(searchTerm.toLocaleLowerCase("pt-BR"));
   });
 
   catalog.innerHTML = results.map((item) => {
@@ -168,9 +172,11 @@ function renderCatalog() {
   catalog.hidden = results.length === 0;
   emptyState.hidden = results.length > 0;
   resultCount.textContent = `Mostrando ${results.length} ${results.length === 1 ? "item" : "itens"}`;
-  document.querySelector("#active").textContent = searchTerm
-    ? `${selectedTypes.join(" + ") || "Todos os formatos"} · Busca: “${searchTerm}”`
-    : "";
+  const currentFilter = favoritesOnly ? "Favoritos" : selectedTypes.join(" + ") || "Todos os formatos";
+  document.querySelector("#active").textContent = [
+    favoritesOnly ? `${currentFilter} · ${favorites.size} salvos` : "",
+    searchTerm ? `Busca: “${searchTerm}”` : ""
+  ].filter(Boolean).join(" · ");
 
   catalog.querySelectorAll(".card").forEach((card) => {
     const open = () => showDetails(Number(card.dataset.index));
@@ -186,18 +192,25 @@ function renderCatalog() {
 
 function updateFilters() {
   filterButtons.forEach((button) => {
-    const selected = button.dataset.filter === "Todos"
+    const selected = !favoritesOnly && (button.dataset.filter === "Todos"
       ? selectedTypes.length === 0
-      : selectedTypes.includes(button.dataset.filter);
+      : selectedTypes.includes(button.dataset.filter));
     button.classList.toggle("selected", selected);
     button.setAttribute("aria-pressed", String(selected));
   });
+
   renderCatalog();
+  document.querySelectorAll(".nav-item").forEach((link) => {
+    const isCurrentView = link.dataset.view === activeNavView || link.dataset.type === activeNavView;
+    link.classList.toggle("active", isCurrentView);
+  });
 }
 
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const type = button.dataset.filter;
+    favoritesOnly = false;
+    activeNavView = type === "Todos" ? "all" : type;
     selectedTypes = type === "Todos"
       ? []
       : selectedTypes.includes(type)
@@ -210,7 +223,20 @@ filterButtons.forEach((button) => {
 
 document.querySelectorAll("[data-type]").forEach((link) => {
   link.addEventListener("click", () => {
+    favoritesOnly = false;
+    activeNavView = link.dataset.type;
     selectedTypes = [link.dataset.type];
+    updateFilters();
+  });
+});
+
+document.querySelectorAll("[data-view]").forEach((link) => {
+  link.addEventListener("click", () => {
+    favoritesOnly = link.dataset.view === "favorites";
+    activeNavView = link.dataset.view;
+    selectedTypes = [];
+    searchTerm = "";
+    searchInput.value = "";
     updateFilters();
   });
 });
@@ -276,6 +302,24 @@ function showDetails(index) {
   `;
   dialog.showModal();
 
+  const favoriteButton = document.querySelector("#favorite-toggle");
+  function updateFavoriteButton() {
+    const isFavorite = favorites.has(item.title);
+    favoriteButton.textContent = isFavorite ? "★" : "☆";
+    favoriteButton.setAttribute("aria-pressed", String(isFavorite));
+    favoriteButton.setAttribute("aria-label", isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos");
+    favoriteButton.classList.toggle("is-favorite", isFavorite);
+  }
+
+  favoriteButton.onclick = () => {
+    if (favorites.has(item.title)) favorites.delete(item.title);
+    else favorites.add(item.title);
+    localStorage.setItem("margem-favorites", JSON.stringify([...favorites]));
+    updateFavoriteButton();
+    renderCatalog();
+  };
+  updateFavoriteButton();
+
   const pageInput = document.querySelector("#page-input");
   const pageStatus = document.querySelector("#page-status");
 
@@ -318,4 +362,8 @@ document.addEventListener("keydown", (event) => {
     searchInput.focus();
   }
 });
+document.querySelector("#show-more").addEventListener("click", () => {
+  document.querySelector("#inicio").scrollIntoView({ behavior: "smooth" });
+});
+
 renderCatalog();

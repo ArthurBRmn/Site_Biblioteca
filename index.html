@@ -1,103 +1,116 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Margem — Biblioteca digital</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="layout">
-    <aside class="sidebar">
-      <a class="brand" href="#inicio">
-        <b>M</b>
-        margem<span>.</span>
-      </a>
-      <p class="side-label">BIBLIOTECA</p>
-      <nav>
-        <a class="active" href="#inicio">⌂ &nbsp; Início</a>
-        <a href="#acervo">▤ &nbsp; Explorar tudo</a>
-        <a href="#acervo" data-type="Livro">▯ &nbsp; Livros</a>
-        <a href="#acervo" data-type="HQ">▧ &nbsp; Quadrinhos</a>
-        <a href="#acervo" data-type="Artigo">≡ &nbsp; Artigos</a>
-        <a href="#acervo" data-type="Poema">✎ &nbsp; Poemas</a>
-      </nav>
-      <div class="side-note">
-        <span>✳</span>
-        <p>Uma boa história<br>sempre encontra<br>seu caminho.</p>
-        <small>LEIA NO SEU TEMPO</small>
-      </div>
-      <small class="status"><i></i> Acervo em expansão</small>
-    </aside>
-    <main id="inicio">
-      <header>
-        <span>Biblioteca <i>/</i> <b>Início</b></span>
-        <small>SEU ESPAÇO DE LEITURA</small>
-        <button aria-label="Perfil">L</button>
-      </header>
-      <section class="hero">
-        <div class="hero-copy">
-          <small class="eyebrow">UM UNIVERSO DE HISTÓRIAS</small>
-          <h1>O que vamos<br><em>descobrir hoje?</em></h1>
-          <p>Explore livros, quadrinhos, artigos e poemas.<br>Escolha seus formatos e encontre uma nova leitura.</p>
-          <a class="primary" href="#acervo">Abrir o acervo <b>↗</b></a>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f1e8">
+    <title>Margem — Biblioteca digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Navegação da biblioteca">
+        <a class="brand" href="#inicio"><b>M</b> margem<span>.</span></a>
+        <p class="side-label">BIBLIOTECA</p>
+        <nav>
+          <a class="nav-item active" href="#inicio" data-view="home">⌂ &nbsp; Início</a>
+          <a class="nav-item" href="#acervo" data-view="all">▤ &nbsp; Explorar tudo</a>
+          <a class="nav-item" href="#acervo" data-type="Livro">▯ &nbsp; Livros</a>
+          <a class="nav-item" href="#acervo" data-type="HQ">▧ &nbsp; Quadrinhos</a>
+          <a class="nav-item" href="#acervo" data-type="Artigo">≡ &nbsp; Artigos</a>
+          <a class="nav-item" href="#acervo" data-type="Poema">✎ &nbsp; Poemas</a>
+          <a class="nav-item" href="#acervo" data-view="favorites">☆ &nbsp; Favoritos</a>
+        </nav>
+        <div class="side-note">
+          <span>✳</span>
+          <p>Uma boa história<br>sempre encontra<br>seu caminho.</p>
+          <small>LEIA NO SEU TEMPO</small>
         </div>
-        <div class="hero-art" aria-label="Livros ilustrados" role="img">
-          <div class="grid"></div>
-          <div class="ring"></div>
-          <div class="book back">
-            <small>01</small>
-            <b>O começo<br>de tudo</b>
+        <small class="status"><i></i> Acervo em expansão</small>
+      </aside>
+
+      <main id="inicio">
+        <header class="topbar">
+          <div class="breadcrumb">Biblioteca <span>/</span> <strong>Início</strong></div>
+          <div class="topbar-actions">
+            <span class="date-label">SEU ESPAÇO DE LEITURA</span>
+            <button class="avatar" type="button" aria-label="Perfil">L</button>
           </div>
-          <div class="book mid">
-            <small>02</small>
-            <b>Histórias<br>que ficam</b>
+        </header>
+
+        <section class="welcome">
+          <div class="welcome-copy">
+            <div class="overline"><span></span> UM UNIVERSO DE HISTÓRIAS</div>
+            <h1>O que vamos<br><em>descobrir hoje?</em></h1>
+            <p>Explore livros, quadrinhos, artigos e poemas. Escolha seus formatos e encontre uma nova leitura.</p>
+            <a href="#acervo" class="primary-link">Abrir o acervo <span>↗</span></a>
           </div>
-          <div class="book front">
-            <small>M</small>
-            <b>VIRE A<br>PÁGINA</b>
+          <div class="welcome-visual" role="img" aria-label="Ilustração de livros">
+            <div class="visual-grid"></div>
+            <div class="visual-ring"></div>
+            <div class="floating-label label-top">IDEIAS EM MOVIMENTO <b>✳</b></div>
+            <div class="stack stack-back"><span>01</span><i>O começo<br>de tudo</i></div>
+            <div class="stack stack-mid"><span>02</span><i>Histórias<br>que ficam</i></div>
+            <div class="stack stack-front"><span>M</span><i>VIRE A<br>PÁGINA</i></div>
+            <div class="floating-label label-bottom">ESTANTE DIGITAL <b>↗</b></div>
           </div>
-          <small class="art-note">IDEIAS EM MOVIMENTO ✳</small>
-        </div>
-        <div class="hero-index"><span>01</span><i></i><span>LEITURAS PARA CADA CURIOSIDADE</span></div>
-      </section>
-      <section class="catalog" id="acervo">
-        <div class="section-heading">
-          <div>
-            <small class="eyebrow">ESCOLHA SEU CAMINHO</small>
-            <h2>Explore o acervo<span>.</span></h2>
+          <div class="welcome-index"><span>01</span><i></i><span>LEITURAS PARA CADA CURIOSIDADE</span></div>
+        </section>
+
+        <section class="catalog-section" id="acervo">
+          <div class="section-topline">
+            <div>
+              <div class="overline">ESCOLHA SEU CAMINHO</div>
+              <h2>Explore o acervo<span>.</span></h2>
+            </div>
+            <p>Filtre por formato ou combine<br>mais de um para ver tudo junto.</p>
           </div>
-          <p>Filtre por formato ou combine<br>mais de um para ver tudo junto.</p>
-        </div>
-        <div class="tools">
-          <div class="filters" role="group" aria-label="Filtrar por formato">
-            <button class="selected" data-filter="Todos" aria-pressed="true">Tudo <sup>08</sup></button>
-            <button data-filter="Livro" aria-pressed="false">Livros <sup>02</sup></button>
-            <button data-filter="HQ" aria-pressed="false">Quadrinhos <sup>02</sup></button>
-            <button data-filter="Artigo" aria-pressed="false">Artigos <sup>02</sup></button>
-            <button data-filter="Poema" aria-pressed="false">Poemas <sup>02</sup></button>
+
+          <div class="catalog-controls">
+            <div class="filters" role="group" aria-label="Filtrar por formato">
+              <button class="filter-button selected" type="button" data-filter="Todos" aria-pressed="true">Tudo <span>08</span></button>
+              <button class="filter-button" type="button" data-filter="Livro" aria-pressed="false">Livros <span>02</span></button>
+              <button class="filter-button" type="button" data-filter="HQ" aria-pressed="false">Quadrinhos <span>02</span></button>
+              <button class="filter-button" type="button" data-filter="Artigo" aria-pressed="false">Artigos <span>02</span></button>
+              <button class="filter-button" type="button" data-filter="Poema" aria-pressed="false">Poemas <span>02</span></button>
+            </div>
+            <label class="search-box">
+              <span aria-hidden="true">⌕</span>
+              <input id="search" type="search" placeholder="Buscar título ou autor" aria-label="Buscar título ou autor">
+              <kbd>⌘ K</kbd>
+            </label>
           </div>
-          <label class="search">
-            ⌕
-            <input id="search" type="search" placeholder="Buscar título ou autor" aria-label="Buscar título ou autor">
-            <kbd>⌘ K</kbd>
-          </label>
-        </div>
-        <div id="active" class="active-filters"></div>
-        <div id="catalog" class="cards" aria-live="polite"></div>
-        <div id="empty" class="empty" hidden>
-          <h3>Nenhuma leitura encontrada</h3>
-          <p>Experimente outra busca ou limpe os filtros.</p>
-          <button id="clear">Limpar filtros</button>
-        </div>
-        <div class="catalog-footer"><span id="count">Mostrando 6 itens</span><a href="#inicio">Voltar ao início ↑</a></div>
-      </section>
-      <footer><a class="brand" href="#inicio">margem<span>.</span></a><small>Um lugar para suas próximas histórias.</small><a href="#inicio">Voltar ao topo ↑</a></footer>
-    </main>
-  </div>
-  <dialog id="dialog"><button class="close" aria-label="Fechar">×</button><div id="details"></div></dialog>
-  <script src="script.js"></script>
-</body>
+
+          <div id="active" class="active-filters" aria-live="polite"></div>
+          <div id="catalog" class="catalog-grid" aria-live="polite"></div>
+          <div id="empty" class="empty-state" hidden>
+            <span>⌕</span>
+            <h3>Nenhuma leitura encontrada</h3>
+            <p>Experimente outra busca ou limpe os filtros.</p>
+            <button id="clear" type="button">Limpar filtros</button>
+          </div>
+          <div class="catalog-footer">
+            <span id="count">Mostrando 8 itens</span>
+            <button id="show-more" type="button">Voltar ao início <span>↑</span></button>
+          </div>
+        </section>
+
+        <footer>
+          <a class="footer-brand" href="#inicio">margem<span>.</span></a>
+          <span>Um lugar para suas próximas histórias.</span>
+          <a href="#inicio">Voltar ao topo ↑</a>
+        </footer>
+      </main>
+    </div>
+
+    <dialog id="dialog" class="item-dialog">
+      <button id="favorite-toggle" class="favorite-toggle" type="button" aria-label="Adicionar aos favoritos" aria-pressed="false">☆</button>
+      <button class="close" type="button" aria-label="Fechar">×</button>
+      <div id="details"></div>
+    </dialog>
+    <script src="script.js"></script>
+  </body>
 </html>
