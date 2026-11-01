@@ -1519,3 +1519,8 @@ dialog {
     height: 36px;
   }
 }
+
+
+.detail .poem-text {
+  white-space: pre-line;
+}

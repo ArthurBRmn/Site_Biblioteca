@@ -84,6 +84,34 @@ const items = [
     coverImage: "",
     pageCount: 22,
   },
+  {
+    title: "Mapa de manhã",
+    author: "Texto original · demonstração",
+    type: "Poema",
+    tag: "VERSOS",
+    color: "#536e87",
+    ink: "#fff9ef",
+    symbol: "✎",
+    bg: "#dfe8e7",
+    description: "Abro a janela devagar,\na rua aprende a clarear.\nNo bolso, um dia por fazer;\nno peito, espaço pra caber.",
+    pdfUrl: "",
+    coverImage: "",
+    pageCount: 1,
+  },
+  {
+    title: "Pequeno intervalo",
+    author: "Texto original · demonstração",
+    type: "Poema",
+    tag: "COTIDIANO",
+    color: "#bd705e",
+    ink: "#fff9ef",
+    symbol: "✧",
+    bg: "#ece8df",
+    description: "Entre a pressa e o café,\num minuto fica de pé.\nO mundo espera, sem falar;\neu respiro antes de andar.",
+    pdfUrl: "",
+    coverImage: "",
+    pageCount: 1,
+  },
 ];
 
 const catalog = document.querySelector("#catalog");
@@ -208,6 +236,7 @@ function showDetails(index) {
     ? item.pageCount
     : null;
   const progressKey = item.title;
+  const descriptionClass = item.type === "Poema" ? "poem-text" : "";
   const savedPage = Math.min(
     totalPages || Number.MAX_SAFE_INTEGER,
     Math.max(1, readingProgress[progressKey] || 1)
@@ -227,7 +256,7 @@ function showDetails(index) {
         <small>${item.type} · ${item.tag}</small>
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.author)}</p>
-        <p>${escapeHtml(item.description)}</p>
+        <p class="${descriptionClass}">${escapeHtml(item.description)}</p>
 
       </div>
       <div class="detail-actions">
