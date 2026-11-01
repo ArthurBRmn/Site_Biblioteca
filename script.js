@@ -228,6 +228,10 @@ function showDetails(index) {
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.author)}</p>
         <p>${escapeHtml(item.description)}</p>
+
+      </div>
+      <div class="detail-actions">
+        ${pdfAction}
         <section class="reading-progress" aria-label="Seu progresso de leitura">
           <label for="page-input">Sua página</label>
           <div class="page-controls">
@@ -238,7 +242,6 @@ function showDetails(index) {
           </div>
           <small id="page-status" aria-live="polite">Página ${savedPage} anotada neste aparelho</small>
         </section>
-        ${pdfAction}
       </div>
     </div>
   `;
