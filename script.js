@@ -320,6 +320,38 @@ function showDetails(index) {
   };
   updateFavoriteButton();
 
+  const shareButton = document.querySelector("#share-item");
+  shareButton.onclick = async () => {
+    const shareUrl = new URL("index.html", window.location.href);
+    shareUrl.hash = `item-${index}`;
+    const shareData = {
+      title: `${item.title} — Margem`,
+      text: `Confira “${item.title}” na biblioteca Margem.`,
+      url: shareUrl.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (error) {
+        if (error.name !== "AbortError") console.error("Não foi possível compartilhar o item.", error);
+      }
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(shareUrl.href);
+      shareButton.textContent = "✓";
+      shareButton.setAttribute("aria-label", "Link copiado");
+      window.setTimeout(() => {
+        shareButton.textContent = "↗";
+        shareButton.setAttribute("aria-label", "Compartilhar este item");
+      }, 1800);
+    } catch {
+      window.prompt("Copie o link para compartilhar este item:", shareUrl.href);
+    }
+  };
+
   const pageInput = document.querySelector("#page-input");
   const pageStatus = document.querySelector("#page-status");
 
@@ -367,3 +399,8 @@ document.querySelector("#show-more").addEventListener("click", () => {
 });
 
 renderCatalog();
+
+const sharedItem = window.location.hash.match(/^#item-(\d+)$/);
+if (sharedItem && items[Number(sharedItem[1])]) {
+  showDetails(Number(sharedItem[1]));
+}

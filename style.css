@@ -330,6 +330,27 @@ h1 em { color: var(--olive); }
   cursor: pointer;
 }
 
+.share-toggle {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 84px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #f8f6f0;
+  color: var(--olive);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.share-toggle:hover {
+  border-color: #c9c6ba;
+  background: #eeece4;
+}
+
 .favorite-toggle:hover,
 .favorite-toggle.is-favorite {
   border-color: #d8b28f;
