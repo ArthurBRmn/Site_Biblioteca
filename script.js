@@ -1,22 +1,35 @@
+// Para cada obra, cole o link direto da imagem em coverImage.
+// Exemplo: coverImage: "https://meusite.com/imagens/capa.jpg"
+// Redes sociais são opcionais: socials: { instagram: "...", facebook: "...", tiktok: "..." }
 // Informe o total de páginas em pageCount. Use null enquanto não souber o total.
 const items = [
   {
-    title: "A vida invisível de Addie LaRue",
-    author: "V. E. Schwab",
-    type: "Livro",
+    title: "Harmonia",
+    author: "Elif",
+    socials: {
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
+    type: "HQ",
     tag: "FANTASIA",
     color: "#425b72",
     ink: "#fff9ef",
     symbol: "✳",
     bg: "#ddc89d",
     description: "Uma história sobre memória, escolhas e o preço de viver para sempre. Addie LaRue faz um pacto que a liberta da morte, mas condena o mundo a esquecê-la.",
-    pdfUrl: "https://drive.google.com/file/d/1UhvrXSmPfCQj9VwFU4lBMsaFEKisUY-6/view?usp=drive_link",
-    coverImage: "",
-    pageCount: 4,
+    pdfUrl: "https://drive.google.com/file/d/18W-yLtpB67Z8LIOdCwO3q-4aWemZfrWG/view?usp=drive_link",
+    coverImage: "https://drive.google.com/file/d/16VRJ3eB1ryfnj1eMvbwd-fgvRKNSvV45/view?usp=drive_link",
+    pageCount: 18,
   },
   {
-    title: "Persépolis",
+    title: "historia dos ritmos",
     author: "Marjane Satrapi",
+    socials: {
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
     type: "HQ",
     tag: "MEMÓRIAS",
     color: "#bd705e",
@@ -24,13 +37,18 @@ const items = [
     symbol: "☾",
     bg: "#ece8df",
     description: "A infância e a juventude de Marjane durante a Revolução Iraniana, contadas em uma HQ autobiográfica sensível e cheia de personalidade.",
-    pdfUrl: "",
+    pdfUrl: "https://drive.google.com/file/d/18W-yLtpB67Z8LIOdCwO3q-4aWemZfrWG/view?usp=sharing",
     coverImage: "",
-    pageCount: 3,
+    pageCount: 18,
   },
   {
     title: "O pequeno príncipe",
     author: "Antoine de Saint-Exupéry",
+    socials: {
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
     type: "Livro",
     tag: "CLÁSSICO",
     color: "#7c9cab",
@@ -45,6 +63,11 @@ const items = [
   {
     title: "A arte de observar",
     author: "Lia Ferreira",
+    socials: {
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
     type: "Artigo",
     tag: "CRIATIVIDADE",
     color: "#536e87",
@@ -59,6 +82,11 @@ const items = [
   {
     title: "Daytripper",
     author: "Fábio Moon & Gabriel Bá",
+    socials: {
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
     type: "HQ",
     tag: "DRAMA",
     color: "#425b72",
@@ -73,6 +101,11 @@ const items = [
   {
     title: "Ler o mundo",
     author: "Caderno de ideias · 8 min",
+    socials: {
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
     type: "Artigo",
     tag: "LEITURA",
     color: "#bd705e",
@@ -87,6 +120,11 @@ const items = [
   {
     title: "Mapa de manhã",
     author: "Texto original · demonstração",
+    socials: {
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
     type: "Poema",
     tag: "VERSOS",
     color: "#536e87",
@@ -101,6 +139,11 @@ const items = [
   {
     title: "Pequeno intervalo",
     author: "Texto original · demonstração",
+    socials: {
+      instagram: "",
+      facebook: "",
+      tiktok: "",
+    },
     type: "Poema",
     tag: "COTIDIANO",
     color: "#bd705e",
@@ -136,6 +179,63 @@ function escapeHtml(value) {
   })[character]);
 }
 
+function renderSocialLinks(socials = {}) {
+  socials = socials || {};
+  const platforms = [
+    { key: "instagram", label: "Instagram", icon: "◎" },
+    { key: "facebook", label: "Facebook", icon: "f" },
+    { key: "tiktok", label: "TikTok", icon: "♪" },
+  ];
+
+  const links = platforms.map(({ key, label, icon }) => {
+    const value = String(socials[key] || "").trim();
+    if (!value) return "";
+
+    const candidate = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+    try {
+      const url = new URL(candidate);
+      if (url.protocol !== "https:" && url.protocol !== "http:") return "";
+      return `<a href="${escapeHtml(url.href)}" target="_blank" rel="noopener noreferrer" aria-label="${label}"><span aria-hidden="true">${icon}</span>${label}</a>`;
+    } catch {
+      return "";
+    }
+  }).filter(Boolean);
+
+  return links.length ? `<div class="social-links" aria-label="Redes sociais">${links.join("")}</div>` : "";
+}
+
+function getCoverImageSources(value) {
+  if (!value) return { src: "", fallback: "" };
+
+  try {
+    const url = new URL(value);
+    if (url.hostname.endsWith("drive.google.com")) {
+      const fileId = url.pathname.match(/\/file\/d\/([^/]+)/)?.[1]
+        || url.searchParams.get("id");
+      if (fileId) {
+        const encodedId = encodeURIComponent(fileId);
+        return {
+          src: `https://drive.google.com/thumbnail?id=${encodedId}&sz=w1000`,
+          fallback: `https://drive.google.com/uc?export=view&id=${encodedId}`,
+        };
+      }
+    }
+  } catch {
+    // Mantém caminhos locais, como images/capa.jpg.
+  }
+
+  return { src: value, fallback: "" };
+}
+
+function enableCoverImageFallbacks(container) {
+  container.querySelectorAll("img[data-fallback]").forEach((image) => {
+    image.addEventListener("error", () => {
+      const fallback = image.dataset.fallback;
+      if (fallback && image.src !== fallback) image.src = fallback;
+    });
+  });
+}
+
 function renderCatalog() {
   const results = items.map((item, index) => ({ ...item, index })).filter((item) => {
     const matchesType = selectedTypes.length === 0 || selectedTypes.includes(item.type);
@@ -145,15 +245,17 @@ function renderCatalog() {
   });
 
   catalog.innerHTML = results.map((item) => {
-    const coverImage = item.coverImage;
+    const coverImage = getCoverImageSources(item.coverImage);
+    const coverImageUrl = escapeHtml(coverImage.src);
+    const coverImageFallback = escapeHtml(coverImage.fallback);
 
     return `
     <article class="card" tabindex="0" role="button" aria-label="Ver detalhes de ${escapeHtml(item.title)}" data-index="${item.index}">
       <div class="card-art" style="background:${item.bg}">
         <span class="kind">${item.tag}</span>
-        <div class="cover${coverImage ? " has-image" : ""}" style="background:${item.color};color:${item.ink}">
-          ${coverImage
-            ? `<img class="cover-image" src="${coverImage}" alt="Capa de ${escapeHtml(item.title)}">`
+        <div class="cover${coverImageUrl ? " has-image" : ""}" style="background:${item.color};color:${item.ink}">
+          ${coverImageUrl
+            ? `<img class="cover-image" src="${coverImageUrl}" data-fallback="${coverImageFallback}" alt="Capa de ${escapeHtml(item.title)}">`
             : `<small>MARGEM · ${item.type.toUpperCase()}</small><strong>${escapeHtml(item.title)}</strong><i>${item.symbol}</i>`}
         </div>
       </div>
@@ -168,6 +270,8 @@ function renderCatalog() {
     </article>
     `;
   }).join("");
+
+  enableCoverImageFallbacks(catalog);
 
   catalog.hidden = results.length === 0;
   emptyState.hidden = results.length > 0;
@@ -257,7 +361,9 @@ document.querySelector("#clear").addEventListener("click", () => {
 const dialog = document.querySelector("#dialog");
 function showDetails(index) {
   const item = items[index];
-  const coverImage = item.coverImage;
+  const coverImage = getCoverImageSources(item.coverImage);
+  const coverImageUrl = escapeHtml(coverImage.src);
+  const coverImageFallback = escapeHtml(coverImage.fallback);
   const totalPages = Number.isInteger(item.pageCount) && item.pageCount > 0
     ? item.pageCount
     : null;
@@ -273,15 +379,16 @@ function showDetails(index) {
 
   document.querySelector("#details").innerHTML = `
     <div class="detail">
-      <div class="detail-cover${coverImage ? " has-image" : ""}" style="background:${item.color};color:${item.ink}">
-        ${coverImage
-          ? `<img src="${coverImage}" alt="Capa de ${escapeHtml(item.title)}">`
+      <div class="detail-cover${coverImageUrl ? " has-image" : ""}" style="background:${item.color};color:${item.ink}">
+        ${coverImageUrl
+          ? `<img src="${coverImageUrl}" data-fallback="${coverImageFallback}" alt="Capa de ${escapeHtml(item.title)}">`
           : `${item.symbol}<br>${escapeHtml(item.title)}`}
       </div>
       <div>
         <small>${item.type} · ${item.tag}</small>
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.author)}</p>
+        ${renderSocialLinks(item.socials)}
         <p class="${descriptionClass}">${escapeHtml(item.description)}</p>
 
       </div>
@@ -300,6 +407,7 @@ function showDetails(index) {
       </div>
     </div>
   `;
+  enableCoverImageFallbacks(document.querySelector("#details"));
   dialog.showModal();
 
   const favoriteButton = document.querySelector("#favorite-toggle");
